@@ -1,13 +1,11 @@
 import express from 'express';
-import { db } from'../utilities/firebase.js';
+import { db, auth } from'../utilities/firebase.js';
 import { collection, addDoc, getDocs, doc } from 'firebase/firestore';
-import { getAuth, signInWithPhoneNumber } from 'firebase/auth';
 
 const subscriberRouter = express.Router();
-const auth = getAuth();
 
 subscriberRouter.post('/register', (req, res) => {
-    let validated = validate(req.body.phoneNumber);
+    const validated = validate(req.body.phoneNumber);
     if (validated == -1){
         res.status(422).send({error: "Invalid phone number."});
     }

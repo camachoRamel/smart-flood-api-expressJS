@@ -5,8 +5,8 @@ import { collection, addDoc, getDocs, doc, setDoc, where, query} from 'firebase/
 const deviceRouter = express.Router();
 
 deviceRouter.post('/recordWaterLevel', (req, res) => {
-    let deviceId = req.body.id;
-    let waterLevel = req.body.waterLevel;
+    const deviceId = req.body.id;
+    const waterLevel = req.body.waterLevel;
     try {
         setDoc(doc(db, 'locations', deviceId), {
             'waterLevel': waterLevel,
@@ -20,10 +20,10 @@ deviceRouter.post('/recordWaterLevel', (req, res) => {
 });
 
 deviceRouter.post('/addLocation', (req, res) => {
-    let deviceId = req.body.id;
-    let waterLevel = req.body.waterLevel;
-    let longitude = req.body.longitude;
-    let latitude = req.body.latitude;
+    const deviceId = req.body.id;
+    const waterLevel = req.body.waterLevel;
+    const longitude = req.body.longitude;
+    const latitude = req.body.latitude;
 
     try {
         addDoc(doc(db, 'locations', deviceId), {
@@ -38,7 +38,7 @@ deviceRouter.post('/addLocation', (req, res) => {
 });
 
 deviceRouter.post('/editLocation', (req, res) => {
-    let locationsDetails = validate(
+    const locationsDetails = validate(
         req.body.id,
         req.body.waterLevel,
         req.body.longitude,
@@ -58,7 +58,7 @@ deviceRouter.post('/editLocation', (req, res) => {
 });
 
 deviceRouter.get('/getLocationDetails/:id', async (req, res) => {
-    let deviceId = req.params.id;
+    const deviceId = req.params.id;
     try {
         const q = query(collection(db, 'locations'), where('__name__', '==', deviceId));
         
